@@ -3,7 +3,9 @@ package main.implementations;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.List;
 import java.util.Objects;
 
 public class Bits implements Serializable {
@@ -29,18 +31,25 @@ public class Bits implements Serializable {
         }
     }
 
+    public static Bits empty() {
+        return new Bits(0);
+    }
+
     public static BitSet bytesToBitSet(byte[] bytes) {
         BigInteger bigInt = new BigInteger(1, bytes);
         return BitSet.valueOf(bigInt.toByteArray());
     }
 
     public static Bits fromText(String text) {
-        BitSet bitSet = bytesToBitSet(text.getBytes());
-        return new Bits(bitSet, bitSet.size()).convertToMSB();
+        String reversedText = new StringBuilder(text).reverse().toString();
+        byte[] bytes = reversedText.getBytes(StandardCharsets.UTF_8);
+        BitSet bitSet = bytesToBitSet(bytes);
+        return new Bits(bitSet, bitSet.length()).convertToMSB();
     }
 
     public String toText() {
-        return new String(toByteArray(), StandardCharsets.US_ASCII);
+        String reverseText = new String(toByteArray(), StandardCharsets.US_ASCII);
+        return new StringBuilder(reverseText).reverse().toString();
     }
 
     public int size() {
@@ -87,6 +96,15 @@ public class Bits implements Serializable {
         concatenated.set(0, size(), this);
         concatenated.set(size(), concatenated.size(), other);
         return concatenated;
+    }
+
+    public List<Bits> split(int blockSize) {
+        List<Bits> blocks = new ArrayList<>();
+        for (int i = 0; i < size(); i += blockSize) {
+            int endIndex = Math.min(i + blockSize, size());
+            blocks.add(get(i, endIndex));
+        }
+        return blocks;
     }
 
     public void xor(Bits bits) {

@@ -1,9 +1,6 @@
 package main;
 
-import main.abstractions.KeyGenerator;
-import main.abstractions.Mixer;
-import main.abstractions.PBox;
-import main.abstractions.SBox;
+import main.abstractions.*;
 import main.implementations.*;
 
 public class Main {
@@ -68,7 +65,6 @@ public class Main {
     };
 
     public static void main(String[] args) {
-
         SBox[] s = new SBox[8];
 
         for (int i = 0; i < sBoxes.length; i++) {
@@ -83,12 +79,26 @@ public class Main {
 
         var plaintext = "AAAA";
         var key = "AAAA";
-        var ciphertext = desEncryptor.encrypt(Bits.fromText(plaintext), Bits.fromText(key));
+        var ciphertext = desEncryptor.encrypt(new Bits("01000001010000010100000101000001"), new Bits("01000001010000010100000101000001"));
 
         var decrypted = desEncryptor.decrypt(ciphertext, Bits.fromText(key));
         String originalPlaintext = decrypted.toText();
         System.out.println(originalPlaintext);
+
+/*
+        DESEncryptionMode desEncryptionMode = new DESEncryptionCBCMode(desEncryptor);
+
+        var plaintext = "AAAA";
+        var key = "AAAA";
+        var iv = "BBBB";
+
+        var ciphertextCBC = desEncryptionMode.encrypt(Bits.fromText(plaintext), Bits.fromText(key), Bits.fromText(iv));
+        System.out.println("CBC ciphertext: " + ciphertextCBC.toText());
+
+        var decryptedCBC = desEncryptionMode.decrypt(ciphertextCBC, Bits.fromText(key), Bits.fromText(iv));
+        String originalPlaintextCBC = decryptedCBC.toText();
+
+        System.out.println("CBC plaintext: " + originalPlaintextCBC);
+*/
     }
 }
-
-

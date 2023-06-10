@@ -87,4 +87,18 @@ public class BitsTest {
         String expected = "Bits{\ndata: {0, 1, 4, 5}\nbinary: 11001100\nhex: CC\n}";
         assertEquals(expected, bits.toString());
     }
+
+    @Test
+    public void testFromText() {
+        String text = "hello";
+        Bits bits = Bits.fromText(text);
+        assertEquals(new Bits("110100001100101011011000110110001101111"), bits);
+    }
+
+    @Test
+    public void testToText() {
+        Bits textBits = Bits.fromText("hello");
+        String resultText = textBits.toText();
+        assertEquals("hello", resultText);
+    }
 }
