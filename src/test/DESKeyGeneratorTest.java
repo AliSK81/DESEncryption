@@ -46,10 +46,6 @@ public class DESKeyGeneratorTest {
                 new Bits("000110000001110001011101011101011100011001101101"),
         };
 
-        for (Bits subKey : generateSubKeys) {
-            System.out.println(subKey.toHexString());
-        }
-
         assertArrayEquals(expectedSubKeys, generateSubKeys);
     }
 }

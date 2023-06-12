@@ -6,20 +6,19 @@ import main.abstractions.Mixer;
 import main.abstractions.PBox;
 
 public class DESEncryptor implements Encryptor {
+    private static final int BLOCK_SIZE = 64;
+    private static final int KEY_SIZE = 64;
+    private static final int ROUNDS = 16;
     private final Mixer mixer;
     private final PBox initialPBox;
     private final PBox finalPBox;
     private final KeyGenerator keyGenerator;
-    private final int blockSize;
-    private final int keySize;
 
-    public DESEncryptor(Mixer mixer, PBox initialPBox, PBox finalPBox, KeyGenerator keyGenerator, int blockSize, int keySize) {
+    public DESEncryptor(Mixer mixer, PBox initialPBox, PBox finalPBox, KeyGenerator keyGenerator) {
         this.mixer = mixer;
         this.initialPBox = initialPBox;
         this.finalPBox = finalPBox;
         this.keyGenerator = keyGenerator;
-        this.blockSize = blockSize;
-        this.keySize = keySize;
     }
 
     public Bits encrypt(Bits plaintext, Bits key) {
@@ -28,10 +27,10 @@ public class DESEncryptor implements Encryptor {
         Bits data = initialPBox.permute(plaintext);
         Bits[] subKeys = keyGenerator.generateSubKeys(key);
 
-        for (int round = 0; round < 16; round++) {
+        for (int round = 0; round < ROUNDS; round++) {
             Bits roundKey = subKeys[round];
             data = mixer.mix(data, roundKey);
-            if (round != 15) data.swapHalves();
+            if (round != ROUNDS - 1) data.swapHalves();
         }
 
         return finalPBox.permute(data);
@@ -43,7 +42,7 @@ public class DESEncryptor implements Encryptor {
         Bits data = initialPBox.permute(ciphertext);
         Bits[] subKeys = keyGenerator.generateSubKeys(key);
 
-        for (int round = 15; round >= 0; round--) {
+        for (int round = ROUNDS - 1; round >= 0; round--) {
             Bits roundKey = subKeys[round];
             data = mixer.mix(data, roundKey);
             if (round != 0) data.swapHalves();
@@ -53,11 +52,11 @@ public class DESEncryptor implements Encryptor {
     }
 
     private void validateInputSize(Bits data, Bits key) {
-        if (data.size() != blockSize) {
-            throw new IllegalArgumentException("Invalid data size: " + data.size() + " (expected " + blockSize + ")");
+        if (data.size() != BLOCK_SIZE) {
+            throw new IllegalArgumentException("Invalid data size: " + data.size() + " (expected " + BLOCK_SIZE + ")");
         }
-        if (key.size() != keySize) {
-            throw new IllegalArgumentException("Invalid key size: " + key.size() + " (expected " + keySize + ")");
+        if (key.size() != KEY_SIZE) {
+            throw new IllegalArgumentException("Invalid key size: " + key.size() + " (expected " + KEY_SIZE + ")");
         }
     }
 }

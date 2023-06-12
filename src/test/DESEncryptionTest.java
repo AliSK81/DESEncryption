@@ -86,9 +86,7 @@ public class DESEncryptionTest {
         PBox finalPBox = new FinalPBox();
         KeyGenerator keyGenerator = new DESKeyGenerator(new ParityDropPBox(), new CompressionPBox());
 
-        int blockSize = 64;
-        int keySize = 64;
-        desEncryptor = new DESEncryptor(mixer, initialPBox, finalPBox, keyGenerator, blockSize, keySize);
+        desEncryptor = new DESEncryptor(mixer, initialPBox, finalPBox, keyGenerator);
     }
 
     @Test
