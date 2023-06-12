@@ -2,7 +2,7 @@ package main.implementations;
 
 public class FinalPBox extends AbstractPBox {
     private static final int[] PERMUTATION_TABLE = {
-            8, 40, 48, 16, 56, 24, 64, 32,
+            40, 8, 48, 16, 56, 24, 64, 32,
             39, 7, 47, 15, 55, 23, 63, 31,
             38, 6, 46, 14, 54, 22, 62, 30,
             37, 5, 45, 13, 53, 21, 61, 29,
