@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MixerImplTest {
 
@@ -87,6 +88,20 @@ public class MixerImplTest {
 
         Bits result = mixer.mix(data, subKey);
         assertEquals(exceptedResult, result);
+    }
+
+    @Test
+    public void testMixInvalidSubKeySize() {
+        Bits data = new Bits("0001010010100111110101100111100000011000110010100001100010101101");
+        Bits subKey = new Bits("111");
+        assertThrows(IllegalArgumentException.class, () -> mixer.mix(data, subKey));
+    }
+
+    @Test
+    public void testMixInvalidBlockSize() {
+        Bits data = new Bits("111");
+        Bits subKey = new Bits("000110010100110011010000011100101101111010001100");
+        assertThrows(IllegalArgumentException.class, () -> mixer.mix(data, subKey));
     }
 
 }

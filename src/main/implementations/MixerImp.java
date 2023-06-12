@@ -7,6 +7,7 @@ import main.abstractions.SBox;
 
 public class MixerImp implements Mixer {
     private static final int BLOCK_SIZE = 64;
+    private static final int SUB_KEY_SIZE = 48;
     private final PBox expansionPBox;
     private final PBox straightPBox;
     private final SBox[] sBoxes;
@@ -22,6 +23,8 @@ public class MixerImp implements Mixer {
 
     @Override
     public Bits mix(Bits data, Bits subKey) {
+        validateInputSize(data, subKey);
+
         Bits leftHalf = data.get(0, BLOCK_SIZE / 2);
         Bits rightHalf = data.get(BLOCK_SIZE / 2, BLOCK_SIZE);
 
@@ -50,5 +53,14 @@ public class MixerImp implements Mixer {
         }
 
         return straightPBox.permute(substitutedInput);
+    }
+
+    private void validateInputSize(Bits data, Bits subKey) {
+        if (data.size() != BLOCK_SIZE) {
+            throw new IllegalArgumentException("Invalid data size: " + data.size() + " (expected " + BLOCK_SIZE + ")");
+        }
+        if (subKey.size() != SUB_KEY_SIZE) {
+            throw new IllegalArgumentException("Invalid subKey size: " + subKey.size() + " (expected " + SUB_KEY_SIZE + ")");
+        }
     }
 }
