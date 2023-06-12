@@ -30,9 +30,8 @@ public class MixerImp implements Mixer {
         leftHalf.xor(mixedRightHalf);
 
         Bits result = new Bits(BLOCK_SIZE);
-        result.or(leftHalf);
-        result.set(BLOCK_SIZE / 2, BLOCK_SIZE);
-        result.or(rightHalf);
+        result.set(0, BLOCK_SIZE / 2, leftHalf);
+        result.set(BLOCK_SIZE / 2, BLOCK_SIZE, rightHalf);
 
         return result;
     }
