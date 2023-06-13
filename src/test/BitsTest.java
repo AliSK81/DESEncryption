@@ -92,7 +92,7 @@ public class BitsTest {
     public void testFromText() {
         String text = "hello";
         Bits bits = Bits.fromText(text);
-        assertEquals(new Bits("110100001100101011011000110110001101111"), bits);
+        assertEquals(new Bits("0110100001100101011011000110110001101111"), bits);
     }
 
     @Test

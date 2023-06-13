@@ -2,12 +2,10 @@ package main.implementations;
 
 import main.abstractions.KeyGenerator;
 import main.abstractions.PBox;
+import main.tables.DESTables;
 
 public class DESKeyGenerator implements KeyGenerator {
-    private static final int[] SHIFT_TABLE = {
-            1, 1, 2, 2, 2, 2, 2, 2,
-            1, 2, 2, 2, 2, 2, 2, 1
-    };
+    private static final int[] SHIFT_TABLE = DESTables.DES_KEY_SHIFT_TABLE;
     private static final int ROUNDS = 16;
     private final PBox parityDropPBox;
     private final PBox compressionPBox;

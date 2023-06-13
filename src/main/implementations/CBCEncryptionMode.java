@@ -1,16 +1,17 @@
 package main.implementations;
 
-import main.abstractions.DESEncryptionMode;
+import main.abstractions.EncryptionMode;
+import main.abstractions.Encryptor;
 
 import java.util.List;
 
-public class DESEncryptionCBCMode implements DESEncryptionMode {
+public class CBCEncryptionMode implements EncryptionMode {
 
     private static final int BLOCK_SIZE = 64;
-    private final DESEncryptor desEncryptor;
+    private final Encryptor encryptor;
 
-    public DESEncryptionCBCMode(DESEncryptor desEncryptor) {
-        this.desEncryptor = desEncryptor;
+    public CBCEncryptionMode(DESEncryptor encryptor) {
+        this.encryptor = encryptor;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class DESEncryptionCBCMode implements DESEncryptionMode {
         for (Bits block : plaintextBlocks) {
             block.xor(previousBlock);
 
-            Bits encryptedBlock = desEncryptor.encrypt(block, key);
+            Bits encryptedBlock = encryptor.encrypt(block, key);
 
             ciphertext = ciphertext.concat(encryptedBlock);
 
@@ -43,7 +44,7 @@ public class DESEncryptionCBCMode implements DESEncryptionMode {
         Bits previousBlock = iv;
 
         for (Bits block : ciphertextBlocks) {
-            Bits decryptedBlock = desEncryptor.decrypt(block, key);
+            Bits decryptedBlock = encryptor.decrypt(block, key);
 
             decryptedBlock.xor(previousBlock);
 
