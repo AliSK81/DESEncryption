@@ -33,8 +33,8 @@ public class ECBEncryptionModeTest {
 
     @Test
     public void testEncryptDecrypt() {
-        var plaintext = Bits.fromText("This is a test plaintext");
-        var key = Bits.fromText("AAAAAAAA");
+        var plaintext = Bits.fromTxt("This is a test plaintext");
+        var key = Bits.fromTxt("AAAAAAAA");
 
         var ciphertext = encryptionMode.encrypt(plaintext, key, null);
         var decrypted = encryptionMode.decrypt(ciphertext, key, null);

@@ -22,15 +22,6 @@ public class Bits implements Serializable {
         this.nbits = nbits;
     }
 
-    public Bits(String bits) {
-        this(bits.length());
-        for (int i = 0; i < bits.length(); i++) {
-            if (bits.charAt(i) == '1') {
-                data.set(i);
-            }
-        }
-    }
-
     public static Bits empty() {
         return new Bits(0);
     }
@@ -40,14 +31,43 @@ public class Bits implements Serializable {
         return BitSet.valueOf(bigInt.toByteArray());
     }
 
-    public static Bits fromText(String text) {
+    public static Bits fromTxt(String text) {
         String reversedText = new StringBuilder(text).reverse().toString();
         byte[] bytes = reversedText.getBytes(StandardCharsets.UTF_8);
         BitSet bitSet = bytesToBitSet(bytes);
         return new Bits(bitSet, text.length() * 8).convertToMSB();
     }
 
-    public String toText() {
+    public static Bits fromByteArray(byte[] bytes) {
+        Bits bits = new Bits(bytes.length * 8);
+        for (int i = 0; i < bytes.length; i++) {
+            byte b = bytes[i];
+            for (int j = 0; j < 8; j++) {
+                if (((b >> (7 - j)) & 1) == 1) {
+                    bits.set(i * 8 + j);
+                }
+            }
+        }
+        return bits;
+    }
+
+    public static Bits fromHex(String hex) {
+        BigInteger bigInt = new BigInteger(hex, 16);
+        byte[] bytes = bigInt.toByteArray();
+        return fromByteArray(bytes);
+    }
+
+    public static Bits fromBin(String binary) {
+        Bits bits = new Bits(binary.length());
+        for (int i = 0; i < binary.length(); i++) {
+            if (binary.charAt(i) == '1') {
+                bits.set(i);
+            }
+        }
+        return bits;
+    }
+
+    public String toTxt() {
         String reverseText = new String(toByteArray(), StandardCharsets.UTF_8);
         return new StringBuilder(reverseText).reverse().toString();
     }
@@ -110,12 +130,12 @@ public class Bits implements Serializable {
     public Bits pad(int blockSize) {
         int padLength = (blockSize - (size() % blockSize)) / 8;
         char padChar = (char) padLength;
-        Bits padding = Bits.fromText(String.valueOf(padChar).repeat(padLength));
+        Bits padding = Bits.fromTxt(String.valueOf(padChar).repeat(padLength));
         return concat(padding);
     }
 
     public Bits trim() {
-        int padLength = get(size() - 8, size()).toText().charAt(0);
+        int padLength = get(size() - 8, size()).toTxt().charAt(0);
         return get(0, size() - padLength * 8);
     }
 
@@ -127,7 +147,7 @@ public class Bits implements Serializable {
         data.or(bits.data);
     }
 
-    public String toBinaryString() {
+    public String toBinString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size(); i++) {
             sb.append(get(i) ? '1' : '0');
@@ -136,7 +156,7 @@ public class Bits implements Serializable {
     }
 
     public String toHexString() {
-        BigInteger bigInteger = new BigInteger(toBinaryString(), 2);
+        BigInteger bigInteger = new BigInteger(toBinString(), 2);
         return bigInteger.toString(16).toUpperCase();
     }
 
@@ -182,7 +202,8 @@ public class Bits implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("Bits{\ndata: %s\nbinary: %s\nhex: %s\n}", data.toString(), toBinaryString(), toHexString());
+        return String.format("Bits{ Data: %s\t Binary: %s\t Hex: %s }",
+                data.toString(), toBinString(), toHexString());
     }
 
     @Override
@@ -190,7 +211,7 @@ public class Bits implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Bits bits = (Bits) o;
-        return Objects.equals(data, bits.data);
+        return nbits == bits.nbits && Objects.equals(data, bits.data);
     }
 
     @Override

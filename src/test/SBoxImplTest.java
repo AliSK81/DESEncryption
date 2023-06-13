@@ -19,24 +19,24 @@ public class SBoxImplTest {
 
     @Test
     public void testSubstitute() {
-        Bits testData = new Bits("110100"); // S[2][8+2] => 9
-        Bits expectedResult = new Bits("1001"); // 8 + 1 => 9
+        Bits testData = Bits.fromBin("110100"); // S[2][8+2] => 9
+        Bits expectedResult = Bits.fromBin("1001"); // 8 + 1 => 9
         Bits result = sBox.substitute(testData);
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testSubstituteWithAllBitsSet() {
-        Bits testData = new Bits("111111"); // S[3][15] => 13
-        Bits expectedResult = new Bits("1101"); // 8 + 4 + 1 => 13
+        Bits testData = Bits.fromBin("111111"); // S[3][15] => 13
+        Bits expectedResult = Bits.fromBin("1101"); // 8 + 4 + 1 => 13
         Bits result = sBox.substitute(testData);
         assertEquals(expectedResult, result);
     }
 
     @Test
     public void testSubstituteWithNoBitsSet() {
-        Bits testData = new Bits("000000"); // S[0][0] => 14
-        Bits expectedResult = new Bits("1110"); //  8 + 4 + 2 => 14
+        Bits testData = Bits.fromBin("000000"); // S[0][0] => 14
+        Bits expectedResult = Bits.fromBin("1110"); //  8 + 4 + 2 => 14
         Bits result = sBox.substitute(testData);
         assertEquals(expectedResult, result);
     }

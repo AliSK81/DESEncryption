@@ -33,9 +33,9 @@ public class CBCEncryptionModeTest {
 
     @Test
     public void testEncryptDecrypt() {
-        var plaintext = Bits.fromText("This is a test plaintext");
-        var key = Bits.fromText("AAAAAAAA");
-        var iv = Bits.fromText("BBBBBBBD");
+        var plaintext = Bits.fromTxt("This is a test plaintext");
+        var key = Bits.fromTxt("AAAAAAAA");
+        var iv = Bits.fromTxt("BBBBBBBD");
 
         var ciphertext = encryptionMode.encrypt(plaintext, key, iv);
         var decrypted = encryptionMode.decrypt(ciphertext, key, iv);

@@ -24,10 +24,10 @@ public class MixerImplTest {
 
     @Test
     public void testMix() {
-        Bits exceptedResult = new Bits("0101101001111000111000111001010000011000110010100001100010101101");
+        Bits exceptedResult = Bits.fromBin("0101101001111000111000111001010000011000110010100001100010101101");
 
-        Bits data = new Bits("0001010010100111110101100111100000011000110010100001100010101101");
-        Bits subKey = new Bits("000110010100110011010000011100101101111010001100");
+        Bits data = Bits.fromBin("0001010010100111110101100111100000011000110010100001100010101101");
+        Bits subKey = Bits.fromBin("000110010100110011010000011100101101111010001100");
 
         Bits result = mixer.mix(data, subKey);
         assertEquals(exceptedResult, result);
@@ -35,15 +35,15 @@ public class MixerImplTest {
 
     @Test
     public void testMixInvalidSubKeySize() {
-        Bits data = new Bits("0001010010100111110101100111100000011000110010100001100010101101");
-        Bits subKey = new Bits("111");
+        Bits data = Bits.fromBin("0001010010100111110101100111100000011000110010100001100010101101");
+        Bits subKey = Bits.fromBin("111");
         assertThrows(IllegalArgumentException.class, () -> mixer.mix(data, subKey));
     }
 
     @Test
     public void testMixInvalidBlockSize() {
-        Bits data = new Bits("111");
-        Bits subKey = new Bits("000110010100110011010000011100101101111010001100");
+        Bits data = Bits.fromBin("111");
+        Bits subKey = Bits.fromBin("000110010100110011010000011100101101111010001100");
         assertThrows(IllegalArgumentException.class, () -> mixer.mix(data, subKey));
     }
 

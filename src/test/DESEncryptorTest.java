@@ -34,10 +34,10 @@ public class DESEncryptorTest {
 
     @Test
     public void testEncrypt() {
-        var expectedCiphertext = new Bits("1100000010110111101010001101000001011111001110101000001010011100"); // C0B7A8D05F3A829C
+        var expectedCiphertext = Bits.fromBin("1100000010110111101010001101000001011111001110101000001010011100"); // C0B7A8D05F3A829C
 
-        var plaintext = new Bits("0001001000110100010101101010101111001101000100110010010100110110"); // 123456ABCD132536
-        var key = new Bits("1010101010111011000010010001100000100111001101101100110011011101"); // AABB09182736CCDD
+        var plaintext = Bits.fromBin("0001001000110100010101101010101111001101000100110010010100110110"); // 123456ABCD132536
+        var key = Bits.fromBin("1010101010111011000010010001100000100111001101101100110011011101"); // AABB09182736CCDD
         var ciphertext = desEncryptor.encrypt(plaintext, key);
 
         assertEquals(expectedCiphertext, ciphertext);
@@ -45,10 +45,10 @@ public class DESEncryptorTest {
 
     @Test
     public void testDecrypt() {
-        var expectedPlaintext = new Bits("0001001000110100010101101010101111001101000100110010010100110110"); // 123456ABCD132536
+        var expectedPlaintext = Bits.fromBin("0001001000110100010101101010101111001101000100110010010100110110"); // 123456ABCD132536
 
-        var ciphertext = new Bits("1100000010110111101010001101000001011111001110101000001010011100"); // C0B7A8D05F3A829C
-        var key = new Bits("1010101010111011000010010001100000100111001101101100110011011101"); // AABB09182736CCDD
+        var ciphertext = Bits.fromBin("1100000010110111101010001101000001011111001110101000001010011100"); // C0B7A8D05F3A829C
+        var key = Bits.fromBin("1010101010111011000010010001100000100111001101101100110011011101"); // AABB09182736CCDD
         var plaintext = desEncryptor.decrypt(ciphertext, key);
 
         assertEquals(expectedPlaintext, plaintext);
@@ -56,29 +56,29 @@ public class DESEncryptorTest {
 
     @Test
     public void testEncryptInvalidBlockSize() {
-        var plaintext = new Bits("111");
-        var key = new Bits("1010101010111011000010010001100000100111001101101100110011011101");
+        var plaintext = Bits.fromBin("111");
+        var key = Bits.fromBin("1010101010111011000010010001100000100111001101101100110011011101");
         assertThrows(IllegalArgumentException.class, () -> desEncryptor.encrypt(plaintext, key));
     }
 
     @Test
     public void testEncryptInvalidKeySize() {
-        var plaintext = new Bits("0001001000110100010101101010101111001101000100110010010100110110");
-        var key = new Bits("111");
+        var plaintext = Bits.fromBin("0001001000110100010101101010101111001101000100110010010100110110");
+        var key = Bits.fromBin("111");
         assertThrows(IllegalArgumentException.class, () -> desEncryptor.encrypt(plaintext, key));
     }
 
     @Test
     public void testDecryptInvalidBlockSize() {
-        var ciphertext = new Bits("111");
-        var key = new Bits("1010101010111011000010010001100000100111001101101100110011011101");
+        var ciphertext = Bits.fromBin("111");
+        var key = Bits.fromBin("1010101010111011000010010001100000100111001101101100110011011101");
         assertThrows(IllegalArgumentException.class, () -> desEncryptor.decrypt(ciphertext, key));
     }
 
     @Test
     public void testDecryptInvalidKeySize() {
-        var ciphertext = new Bits("1100000010110111101010001101000001011111001110101000001010011100");
-        var key = new Bits("111");
+        var ciphertext = Bits.fromBin("1100000010110111101010001101000001011111001110101000001010011100");
+        var key = Bits.fromBin("111");
         assertThrows(IllegalArgumentException.class, () -> desEncryptor.decrypt(ciphertext, key));
     }
 }
