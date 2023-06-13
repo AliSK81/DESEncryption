@@ -44,11 +44,11 @@ public class Bits implements Serializable {
         String reversedText = new StringBuilder(text).reverse().toString();
         byte[] bytes = reversedText.getBytes(StandardCharsets.UTF_8);
         BitSet bitSet = bytesToBitSet(bytes);
-        return new Bits(bitSet, bitSet.length()).convertToMSB();
+        return new Bits(bitSet, text.length() * 8).convertToMSB();
     }
 
     public String toText() {
-        String reverseText = new String(toByteArray(), StandardCharsets.US_ASCII);
+        String reverseText = new String(toByteArray(), StandardCharsets.UTF_8);
         return new StringBuilder(reverseText).reverse().toString();
     }
 
@@ -105,6 +105,18 @@ public class Bits implements Serializable {
             blocks.add(get(i, endIndex));
         }
         return blocks;
+    }
+
+    public Bits pad(int blockSize) {
+        int padLength = (blockSize - (size() % blockSize)) / 8;
+        char padChar = (char) padLength;
+        Bits padding = Bits.fromText(String.valueOf(padChar).repeat(padLength));
+        return concat(padding);
+    }
+
+    public Bits trim() {
+        int padLength = get(size() - 8, size()).toText().charAt(0);
+        return get(0, size() - padLength * 8);
     }
 
     public void xor(Bits bits) {
