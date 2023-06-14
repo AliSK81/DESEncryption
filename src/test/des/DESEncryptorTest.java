@@ -1,10 +1,11 @@
-package test;
+package test.des;
 
 import main.abstractions.KeyGenerator;
 import main.abstractions.Mixer;
 import main.abstractions.PBox;
 import main.abstractions.SBox;
 import main.implementations.*;
+import main.implementations.des.*;
 import main.tables.DESTables;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,10 +25,10 @@ public class DESEncryptorTest {
     public void setUp() {
         SBox[] sBoxes = Arrays.stream(SUBSTITUTION_TABLES).map(SBoxImpl::new).toArray(SBox[]::new);
 
-        Mixer mixer = new MixerImp(new ExpansionPBox(), new StraightPBox(), sBoxes);
-        PBox initialPBox = new InitialPBox();
-        PBox finalPBox = new FinalPBox();
-        KeyGenerator keyGenerator = new DESKeyGenerator(new ParityDropPBox(), new CompressionPBox());
+        Mixer mixer = new MixerImp(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
+        PBox initialPBox = new DESInitialPBox();
+        PBox finalPBox = new DESFinalPBox();
+        KeyGenerator keyGenerator = new DESKeyGenerator(new DESParityDropPBox(), new DESCompressionPBox());
 
         desEncryptor = new DESEncryptor(mixer, initialPBox, finalPBox, keyGenerator);
     }

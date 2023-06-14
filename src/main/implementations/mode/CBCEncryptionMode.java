@@ -1,14 +1,18 @@
-package main.implementations;
+package main.implementations.mode;
 
 import main.abstractions.EncryptionMode;
 import main.abstractions.Encryptor;
+import main.implementations.Bits;
+import main.implementations.des.DESEncryptor;
 
-public class ECBEncryptionMode implements EncryptionMode {
+import java.util.List;
+
+public class CBCEncryptionMode implements EncryptionMode {
 
     private static final int BLOCK_SIZE = 64;
     private final Encryptor encryptor;
 
-    public ECBEncryptionMode(DESEncryptor encryptor) {
+    public CBCEncryptionMode(Encryptor encryptor) {
         this.encryptor = encryptor;
     }
 
@@ -16,12 +20,19 @@ public class ECBEncryptionMode implements EncryptionMode {
     public Bits encrypt(Bits plaintext, Bits key, Bits iv) {
         Bits paddedPlaintext = plaintext.pad(BLOCK_SIZE);
 
-        Bits ciphertext = Bits.empty();
+        List<Bits> plaintextBlocks = paddedPlaintext.split(BLOCK_SIZE);
 
-        for (Bits block : paddedPlaintext.split(BLOCK_SIZE)) {
+        Bits ciphertext = Bits.empty();
+        Bits previousBlock = iv;
+
+        for (Bits block : plaintextBlocks) {
+            block.xor(previousBlock);
+
             Bits encryptedBlock = encryptor.encrypt(block, key);
 
             ciphertext = ciphertext.concat(encryptedBlock);
+
+            previousBlock = encryptedBlock;
         }
 
         return ciphertext;
@@ -29,12 +40,19 @@ public class ECBEncryptionMode implements EncryptionMode {
 
     @Override
     public Bits decrypt(Bits ciphertext, Bits key, Bits iv) {
-        Bits plaintext = Bits.empty();
+        List<Bits> ciphertextBlocks = ciphertext.split(BLOCK_SIZE);
 
-        for (Bits block : ciphertext.split(BLOCK_SIZE)) {
+        Bits plaintext = Bits.empty();
+        Bits previousBlock = iv;
+
+        for (Bits block : ciphertextBlocks) {
             Bits decryptedBlock = encryptor.decrypt(block, key);
 
+            decryptedBlock.xor(previousBlock);
+
             plaintext = plaintext.concat(decryptedBlock);
+
+            previousBlock = block;
         }
 
         return plaintext.trim();

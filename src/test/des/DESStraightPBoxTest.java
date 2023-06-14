@@ -1,14 +1,14 @@
-package test;
+package test.des;
 
 import main.implementations.Bits;
-import main.implementations.StraightPBox;
+import main.implementations.des.DESStraightPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StraightPBoxTest {
+public class DESStraightPBoxTest {
 
-    StraightPBox pBox = new StraightPBox();
+    DESStraightPBox pBox = new DESStraightPBox();
 
     @Test
     public void testPermuteWithAllBitsSet() {

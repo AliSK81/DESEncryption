@@ -1,11 +1,11 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.tables.DESTables;
 
-public class StraightPBox extends AbstractPBox {
+public class DESStraightPBox extends AbstractPBox {
     private static final int[] PERMUTATION_TABLE = DESTables.DES_STRAIGHT_PERMUTATION_TABLE;
 
-    public StraightPBox() {
+    public DESStraightPBox() {
         super(PERMUTATION_TABLE);
     }
 }

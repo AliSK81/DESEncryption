@@ -1,7 +1,11 @@
-package test;
+package test.des;
 
 import main.abstractions.SBox;
 import main.implementations.*;
+import main.implementations.des.DESExpansionPBox;
+import main.implementations.des.DESStraightPBox;
+import main.implementations.des.MixerImp;
+import main.implementations.des.SBoxImpl;
 import main.tables.DESTables;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +23,7 @@ public class MixerImplTest {
     @BeforeEach
     public void setup() {
         SBox[] sBoxes = Arrays.stream(SUBSTITUTION_TABLES).map(SBoxImpl::new).toArray(SBox[]::new);
-        mixer = new MixerImp(new ExpansionPBox(), new StraightPBox(), sBoxes);
+        mixer = new MixerImp(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
     }
 
     @Test

@@ -1,20 +1,20 @@
-package test;
+package test.des;
 
 import main.abstractions.KeyGenerator;
 import main.abstractions.PBox;
 import main.implementations.Bits;
-import main.implementations.CompressionPBox;
-import main.implementations.DESKeyGenerator;
-import main.implementations.ParityDropPBox;
+import main.implementations.des.DESCompressionPBox;
+import main.implementations.des.DESKeyGenerator;
+import main.implementations.des.DESParityDropPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DESKeyGeneratorTest {
-    private final PBox parityDropPBox = new ParityDropPBox();
+    private final PBox parityDropPBox = new DESParityDropPBox();
 
-    private final PBox compressionPBox = new CompressionPBox();
+    private final PBox compressionPBox = new DESCompressionPBox();
 
 
     @Test

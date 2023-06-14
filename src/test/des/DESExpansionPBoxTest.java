@@ -1,19 +1,20 @@
-package test;
+package test.des;
+
 
 import main.implementations.Bits;
-import main.implementations.CompressionPBox;
+import main.implementations.des.DESExpansionPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CompressionPBoxTest {
+public class DESExpansionPBoxTest {
 
-    CompressionPBox pBox = new CompressionPBox();
+    DESExpansionPBox pBox = new DESExpansionPBox();
 
     @Test
     public void testPermuteWithAllBitsSet() {
-        Bits testData = new Bits(56);
-        testData.set(0, 56);
+        Bits testData = new Bits(32);
+        testData.set(0, 32);
 
         Bits expectedResult = new Bits(48);
         expectedResult.set(0, 48);
@@ -24,7 +25,7 @@ public class CompressionPBoxTest {
 
     @Test
     public void testPermuteWithNoBitsSet() {
-        Bits testData = new Bits(56);
+        Bits testData = new Bits(32);
 
         Bits expectedResult = new Bits(48);
 

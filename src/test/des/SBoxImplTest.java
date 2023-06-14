@@ -1,7 +1,7 @@
-package test;
+package test.des;
 
 import main.implementations.Bits;
-import main.implementations.SBoxImpl;
+import main.implementations.des.SBoxImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

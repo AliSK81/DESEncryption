@@ -1,6 +1,7 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.abstractions.SBox;
+import main.implementations.Bits;
 
 public class SBoxImpl implements SBox {
     private final int[] substitutionTable;

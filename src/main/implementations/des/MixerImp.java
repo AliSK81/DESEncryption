@@ -1,8 +1,9 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.abstractions.Mixer;
 import main.abstractions.PBox;
 import main.abstractions.SBox;
+import main.implementations.Bits;
 
 
 public class MixerImp implements Mixer {

@@ -1,11 +1,11 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.tables.DESTables;
 
-public class CompressionPBox extends AbstractPBox {
+public class DESCompressionPBox extends AbstractPBox {
     private static final int[] COMPRESSION_TABLE = DESTables.DES_KEY_COMPRESSION_TABLE;
 
-    public CompressionPBox() {
+    public DESCompressionPBox() {
         super(COMPRESSION_TABLE);
     }
 }

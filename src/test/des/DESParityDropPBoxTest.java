@@ -1,14 +1,14 @@
-package test;
+package test.des;
 
 import main.implementations.Bits;
-import main.implementations.ParityDropPBox;
+import main.implementations.des.DESParityDropPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ParityDropPBoxTest {
+public class DESParityDropPBoxTest {
 
-    ParityDropPBox pBox = new ParityDropPBox();
+    DESParityDropPBox pBox = new DESParityDropPBox();
 
     @Test
     public void testPermute() {

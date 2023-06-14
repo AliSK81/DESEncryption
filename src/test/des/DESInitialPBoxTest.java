@@ -1,23 +1,22 @@
-package test;
-
+package test.des;
 
 import main.implementations.Bits;
-import main.implementations.ExpansionPBox;
+import main.implementations.des.DESInitialPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ExpansionPBoxTest {
+public class DESInitialPBoxTest {
 
-    ExpansionPBox pBox = new ExpansionPBox();
+    DESInitialPBox pBox = new DESInitialPBox();
 
     @Test
     public void testPermuteWithAllBitsSet() {
-        Bits testData = new Bits(32);
-        testData.set(0, 32);
+        Bits testData = new Bits(64);
+        testData.set(0, 64);
 
-        Bits expectedResult = new Bits(48);
-        expectedResult.set(0, 48);
+        Bits expectedResult = new Bits(64);
+        expectedResult.set(0, 64);
 
         Bits result = pBox.permute(testData);
         assertEquals(expectedResult, result);
@@ -25,9 +24,9 @@ public class ExpansionPBoxTest {
 
     @Test
     public void testPermuteWithNoBitsSet() {
-        Bits testData = new Bits(32);
+        Bits testData = new Bits(64);
 
-        Bits expectedResult = new Bits(48);
+        Bits expectedResult = new Bits(64);
 
         Bits result = pBox.permute(testData);
         assertEquals(expectedResult, result);

@@ -1,6 +1,7 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.abstractions.PBox;
+import main.implementations.Bits;
 
 public abstract class AbstractPBox implements PBox {
     protected final int[] permutationTable;

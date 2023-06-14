@@ -1,7 +1,8 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.abstractions.KeyGenerator;
 import main.abstractions.PBox;
+import main.implementations.Bits;
 import main.tables.DESTables;
 
 public class DESKeyGenerator implements KeyGenerator {

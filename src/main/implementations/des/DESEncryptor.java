@@ -1,9 +1,10 @@
-package main.implementations;
+package main.implementations.des;
 
 import main.abstractions.Encryptor;
 import main.abstractions.KeyGenerator;
 import main.abstractions.Mixer;
 import main.abstractions.PBox;
+import main.implementations.Bits;
 
 public class DESEncryptor implements Encryptor {
     private static final int BLOCK_SIZE = 64;

@@ -1,14 +1,14 @@
-package test;
+package test.des;
 
 import main.implementations.Bits;
-import main.implementations.FinalPBox;
+import main.implementations.des.DESFinalPBox;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FinalPBoxTest {
 
-    FinalPBox pBox = new FinalPBox();
+    DESFinalPBox pBox = new DESFinalPBox();
 
     @Test
     public void testPermuteWithAllBitsSet() {
