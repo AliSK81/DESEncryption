@@ -3,10 +3,7 @@ package main.implementations;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Bits implements Serializable {
     private final BitSet data;
@@ -24,6 +21,10 @@ public class Bits implements Serializable {
 
     public static Bits empty() {
         return new Bits(0);
+    }
+
+    public Bits copy() {
+        return get(0, nbits);
     }
 
     public static BitSet bytesToBitSet(byte[] bytes) {
@@ -54,6 +55,9 @@ public class Bits implements Serializable {
     public static Bits fromHex(String hex) {
         BigInteger bigInt = new BigInteger(hex, 16);
         byte[] bytes = bigInt.toByteArray();
+        System.out.println(Arrays.toString(bytes));
+        System.out.println(hex);
+        System.out.println(fromByteArray(bytes));
         return fromByteArray(bytes);
     }
 
@@ -153,6 +157,14 @@ public class Bits implements Serializable {
             sb.append(get(i) ? '1' : '0');
         }
         return sb.toString();
+    }
+
+    public int countOnes() {
+        int count = 0;
+        for (int i = 0; i < size(); i++) {
+            count += data.get(i) ? 1 : 0;
+        }
+        return count;
     }
 
     public String toHexString() {

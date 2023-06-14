@@ -1,19 +1,14 @@
 package main.implementations.custom;
 
 import main.abstractions.*;
-import main.implementations.*;
-import main.implementations.custom.CustomFinalPBox;
-import main.implementations.custom.CustomInitialPBox;
-import main.implementations.custom.CustomStraightPBox;
+import main.implementations.Bits;
 import main.implementations.des.*;
 import main.implementations.mode.ECBEncryptionMode;
 import main.tables.DESTables;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,20 +44,108 @@ public class Attack {
 
         DESEncryptor desEncryptor = new DESEncryptor(mixer, initialPBox, finalPBox, keyGenerator, 1);
 
+        encryptor = desEncryptor;
         encryptionMode = new ECBEncryptionMode(desEncryptor);
     }
 
+    private final Encryptor encryptor;
+
+    private final static int BLOCK_SIZE = 64;
+
     public void attack() {
         var key = Bits.fromHex("4355262724562343");
+        PBox initialPBox = new CustomInitialPBox();
 
-        for (Map.Entry<String, String> entry: plaintextToCiphertext.entrySet()) {
+        Map<String, String> io = new HashMap<>();
+
+
+        for (Map.Entry<String, String> entry : plaintextToCiphertext.entrySet()) {
             Bits plainText = Bits.fromTxt(entry.getKey());
-            Bits cipherText = Bits.fromTxt(entry.getValue());
-            var actualCiphertext = encryptionMode.encrypt(plainText, key, null);
+            Bits cipherText = Bits.fromHex(entry.getValue());
 
-            var leftHalfPlain = plainText.getFirstHalf();
-            var leftHalfCipher = actualCiphertext.getFirstHalf();
-            leftHalfPlain.xor(leftHalfCipher);
+            Bits paddedPlaintext = plainText.pad(BLOCK_SIZE);
+
+            List<Bits> plainBlocks = paddedPlaintext.split(BLOCK_SIZE);
+            List<Bits> cipherBlocks = cipherText.split(BLOCK_SIZE);
+
+//            assertEquals(plainBlocks.size(), cipherBlocks.size());
+
+            System.out.println(paddedPlaintext.toTxt());
+            System.out.println(paddedPlaintext.size());
+
+            System.out.println(cipherText.toHexString());
+            System.out.println(cipherText.size());
+
+            System.out.println("plain blocks");
+            for (int i = 0; i < plainBlocks.size(); i++) {
+                System.out.println(plainBlocks.get(i).toHexString());
+            }
+
+            System.out.println("cipher blocks");
+            for (int i = 0; i < cipherBlocks.size(); i++) {
+                System.out.println(cipherBlocks.get(i).toHexString());
+            }
+
+            System.out.println();
+            System.out.println();
+
+//            for (int i = 0; i < plainBlocks.size(); i++) {
+//
+//                Bits plainBlock = plainBlocks.get(i);
+//                Bits exceptedCipherBlock = cipherBlocks.get(i);
+//
+//                Bits actualCipherBlock = encryptor.encrypt(plainBlock, key);
+//
+//                Bits leftPermuted = initialPBox.permute(plainBlock).getFirstHalf();
+//
+//                leftPermuted.xor(actualCipherBlock.getFirstHalf());
+//
+//                Bits straightPBoxInput = leftPermuted;
+//
+//                // ----
+//                Bits cipherReversedLeft = initialPBox.permute(exceptedCipherBlock).getFirstHalf();
+//                cipherReversedLeft.xor(leftPermuted);
+//                Bits straightPBoxOutput = cipherReversedLeft;
+//
+//                System.out.println(straightPBoxInput.toBinString());
+//                System.out.println(straightPBoxOutput.toBinString());
+//                System.out.println(straightPBoxInput.countOnes());
+//                System.out.println(straightPBoxOutput.countOnes());
+//                System.out.println();
+//
+////                io.put(straightPBoxInput.toBinString(), straightPBoxOutput.toBinString());
+//            }
+
         }
+
+//        System.out.println(Arrays.toString(findPbox(io)));
+    }
+
+    public int[] findPbox(Map<String, String> outputByInput) {
+        // Step 1: Determine the size of the input and output of the P-box.
+        int inputSize = outputByInput.keySet().iterator().next().length();
+        int outputSize = outputByInput.values().iterator().next().length();
+
+        // Step 2: Create an empty P-box array.
+        int[] pbox = new int[outputSize];
+
+        // Step 3: Fill in the P-box array.
+        for (int i = 0; i < outputSize; i++) {
+            StringBuilder inputBuilder = new StringBuilder();
+            for (String input : outputByInput.keySet()) {
+                inputBuilder.append(input.charAt(i));
+            }
+            String inputColumn = inputBuilder.toString();
+            String outputColumn = outputByInput.get(inputColumn);
+            for (int j = 0; j < inputSize; j++) {
+                if (outputColumn.charAt(j) == '1') {
+                    pbox[i] = j;
+                    break;
+                }
+            }
+        }
+
+        // Step 4: Return the P-box array.
+        return pbox;
     }
 }

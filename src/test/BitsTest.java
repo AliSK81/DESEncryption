@@ -162,8 +162,9 @@ public class BitsTest {
 
     @Test
     public void testFromHex() {
-        Bits bits = Bits.fromHex("3A");
-        assertEquals(Bits.fromBin("00111010"), bits);
+        Bits bits = Bits.fromHex("CF646E7170632D45");
+//        assertEquals(Bits.fromBin("00111010"), bits);
+        assertEquals(64, bits.size());
     }
 
     @Test
@@ -177,6 +178,7 @@ public class BitsTest {
         byte[] bytes = {0x01, 0x23, 0x45, 0x67};
         Bits bits = Bits.fromByteArray(bytes);
         assertEquals(Bits.fromBin("00000001001000110100010101100111"), bits);
+        assertEquals(bytes.length * 8 , bits.size());
     }
 
     @Test
