@@ -55,10 +55,13 @@ public class Bits implements Serializable {
     public static Bits fromHex(String hex) {
         BigInteger bigInt = new BigInteger(hex, 16);
         byte[] bytes = bigInt.toByteArray();
-        System.out.println(Arrays.toString(bytes));
-        System.out.println(hex);
-        System.out.println(fromByteArray(bytes));
-        return fromByteArray(bytes);
+        if (bytes[0] == 0) {
+            byte[] unsignedBytes = new byte[bytes.length - 1];
+            System.arraycopy(bytes, 1, unsignedBytes, 0, unsignedBytes.length);
+            return fromByteArray(unsignedBytes);
+        } else {
+            return fromByteArray(bytes);
+        }
     }
 
     public static Bits fromBin(String binary) {

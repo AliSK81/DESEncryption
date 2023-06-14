@@ -68,7 +68,7 @@ public class Attack {
             List<Bits> plainBlocks = paddedPlaintext.split(BLOCK_SIZE);
             List<Bits> cipherBlocks = cipherText.split(BLOCK_SIZE);
 
-//            assertEquals(plainBlocks.size(), cipherBlocks.size());
+            assertEquals(plainBlocks.size(), cipherBlocks.size());
 
             System.out.println(paddedPlaintext.toTxt());
             System.out.println(paddedPlaintext.size());
@@ -89,32 +89,32 @@ public class Attack {
             System.out.println();
             System.out.println();
 
-//            for (int i = 0; i < plainBlocks.size(); i++) {
-//
-//                Bits plainBlock = plainBlocks.get(i);
-//                Bits exceptedCipherBlock = cipherBlocks.get(i);
-//
-//                Bits actualCipherBlock = encryptor.encrypt(plainBlock, key);
-//
-//                Bits leftPermuted = initialPBox.permute(plainBlock).getFirstHalf();
-//
-//                leftPermuted.xor(actualCipherBlock.getFirstHalf());
-//
-//                Bits straightPBoxInput = leftPermuted;
-//
-//                // ----
-//                Bits cipherReversedLeft = initialPBox.permute(exceptedCipherBlock).getFirstHalf();
-//                cipherReversedLeft.xor(leftPermuted);
-//                Bits straightPBoxOutput = cipherReversedLeft;
-//
-//                System.out.println(straightPBoxInput.toBinString());
-//                System.out.println(straightPBoxOutput.toBinString());
-//                System.out.println(straightPBoxInput.countOnes());
-//                System.out.println(straightPBoxOutput.countOnes());
-//                System.out.println();
-//
-////                io.put(straightPBoxInput.toBinString(), straightPBoxOutput.toBinString());
-//            }
+            for (int i = 0; i < plainBlocks.size(); i++) {
+
+                Bits plainBlock = plainBlocks.get(i);
+                Bits exceptedCipherBlock = cipherBlocks.get(i);
+
+                Bits actualCipherBlock = encryptor.encrypt(plainBlock, key);
+
+                Bits leftPermuted = initialPBox.permute(plainBlock).getFirstHalf();
+
+                leftPermuted.xor(actualCipherBlock.getFirstHalf());
+
+                Bits straightPBoxInput = leftPermuted;
+
+                // ----
+                Bits cipherReversedLeft = initialPBox.permute(exceptedCipherBlock).getFirstHalf();
+                cipherReversedLeft.xor(leftPermuted);
+                Bits straightPBoxOutput = cipherReversedLeft;
+
+                System.out.println(straightPBoxInput.toBinString());
+                System.out.println(straightPBoxOutput.toBinString());
+                System.out.println(straightPBoxInput.countOnes());
+                System.out.println(straightPBoxOutput.countOnes());
+                System.out.println();
+
+//                io.put(straightPBoxInput.toBinString(), straightPBoxOutput.toBinString());
+            }
 
         }
 
