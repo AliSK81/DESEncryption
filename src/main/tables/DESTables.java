@@ -1,7 +1,7 @@
 package main.tables;
 
 public class DESTables {
-    public static final int[][] DES_SUBSTITUTION_TABLES = {{
+    public static final int[][] SUBSTITUTION_TABLES = {{
             14, 4, 13, 1, 2, 15, 11, 8, 3, 10, 6, 12, 5, 9, 0, 7,
             0, 15, 7, 4, 14, 2, 13, 1, 10, 6, 12, 11, 9, 5, 3, 8,
             4, 1, 14, 8, 13, 6, 2, 11, 15, 12, 9, 7, 3, 10, 5, 0,
@@ -43,14 +43,14 @@ public class DESTables {
             2, 1, 14, 7, 4, 10, 8, 13, 15, 12, 9, 0, 3, 5, 6, 11
     }};
 
-    public static final int[] DES_STRAIGHT_PERMUTATION_TABLE = {
+    public static final int[] STRAIGHT_PERMUTATION_TABLE = {
             16, 7, 20, 21, 29, 12, 28, 17,
             1, 15, 23, 26, 5, 18, 31, 10,
             2, 8, 24, 14, 32, 27, 3, 9,
             19, 13, 30, 6, 22, 11, 4, 25
     };
 
-    public static final int[] DES_INITIAL_PERMUTATION_TABLE = {
+    public static final int[] INITIAL_PERMUTATION_TABLE = {
             58, 50, 42, 34, 26, 18, 10, 2,
             60, 52, 44, 36, 28, 20, 12, 4,
             62, 54, 46, 38, 30, 22, 14, 6,
@@ -61,7 +61,7 @@ public class DESTables {
             63, 55, 47, 39, 31, 23, 15, 7
     };
 
-    public static final int[] DES_FINAL_PERMUTATION_TABLE = {
+    public static final int[] FINAL_PERMUTATION_TABLE = {
             40, 8, 48, 16, 56, 24, 64, 32,
             39, 7, 47, 15, 55, 23, 63, 31,
             38, 6, 46, 14, 54, 22, 62, 30,
@@ -73,7 +73,7 @@ public class DESTables {
     };
 
 
-    public static final int[] DES_EXPANSION_PERMUTATION_TABLE = {
+    public static final int[] EXPANSION_PERMUTATION_TABLE = {
             32, 1, 2, 3, 4, 5, 4, 5,
             6, 7, 8, 9, 8, 9, 10, 11,
             12, 13, 12, 13, 14, 15, 16, 17,
@@ -82,7 +82,7 @@ public class DESTables {
             28, 29, 28, 29, 30, 31, 32, 1
     };
 
-    public static final int[] DES_KEY_COMPRESSION_TABLE = {
+    public static final int[] KEY_COMPRESSION_TABLE = {
             14, 17, 11, 24, 1, 5,
             3, 28, 15, 6, 21, 10,
             23, 19, 12, 4, 26, 8,
@@ -93,7 +93,7 @@ public class DESTables {
             46, 42, 50, 36, 29, 32
     };
 
-    public static final int[] DES_KEY_PARITY_BIT_DROP_PERMUTATION_TABLE = {
+    public static final int[] KEY_PARITY_BIT_DROP_PERMUTATION_TABLE = {
             57, 49, 41, 33, 25, 17, 9,
             1, 58, 50, 42, 34, 26, 18,
             10, 2, 59, 51, 43, 35, 27,
@@ -104,7 +104,7 @@ public class DESTables {
             21, 13, 5, 28, 20, 12, 4
     };
 
-    public static final int[] DES_KEY_SHIFT_TABLE = {
+    public static final int[] KEY_SHIFT_TABLE = {
             1, 1, 2, 2, 2, 2, 2, 2,
             1, 2, 2, 2, 2, 2, 2, 1
     };

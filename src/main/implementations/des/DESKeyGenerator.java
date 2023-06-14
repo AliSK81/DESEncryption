@@ -6,7 +6,7 @@ import main.implementations.Bits;
 import main.tables.DESTables;
 
 public class DESKeyGenerator implements KeyGenerator {
-    private static final int[] SHIFT_TABLE = DESTables.DES_KEY_SHIFT_TABLE;
+    private static final int[] SHIFT_TABLE = DESTables.KEY_SHIFT_TABLE;
     private static final int ROUNDS = 16;
     private final PBox parityDropPBox;
     private final PBox compressionPBox;

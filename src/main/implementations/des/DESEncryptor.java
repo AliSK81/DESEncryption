@@ -9,7 +9,7 @@ import main.implementations.Bits;
 public class DESEncryptor implements Encryptor {
     private static final int BLOCK_SIZE = 64;
     private static final int KEY_SIZE = 64;
-    private static final int ROUNDS = 16;
+    private static int ROUNDS = 16;
     private final Mixer mixer;
     private final PBox initialPBox;
     private final PBox finalPBox;
@@ -20,6 +20,14 @@ public class DESEncryptor implements Encryptor {
         this.initialPBox = initialPBox;
         this.finalPBox = finalPBox;
         this.keyGenerator = keyGenerator;
+    }
+
+    public DESEncryptor(Mixer mixer, PBox initialPBox, PBox finalPBox, KeyGenerator keyGenerator, int round) {
+        this.mixer = mixer;
+        this.initialPBox = initialPBox;
+        this.finalPBox = finalPBox;
+        this.keyGenerator = keyGenerator;
+        ROUNDS = round;
     }
 
     public Bits encrypt(Bits plaintext, Bits key) {

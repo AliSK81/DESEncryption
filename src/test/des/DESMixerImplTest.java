@@ -4,7 +4,7 @@ import main.abstractions.SBox;
 import main.implementations.*;
 import main.implementations.des.DESExpansionPBox;
 import main.implementations.des.DESStraightPBox;
-import main.implementations.des.MixerImp;
+import main.implementations.des.DESMixer;
 import main.implementations.des.SBoxImpl;
 import main.tables.DESTables;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,15 +15,15 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MixerImplTest {
+public class DESMixerImplTest {
 
-    static int[][] SUBSTITUTION_TABLES = DESTables.DES_SUBSTITUTION_TABLES;
-    private MixerImp mixer;
+    static int[][] SUBSTITUTION_TABLES = DESTables.SUBSTITUTION_TABLES;
+    private DESMixer mixer;
 
     @BeforeEach
     public void setup() {
         SBox[] sBoxes = Arrays.stream(SUBSTITUTION_TABLES).map(SBoxImpl::new).toArray(SBox[]::new);
-        mixer = new MixerImp(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
+        mixer = new DESMixer(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
     }
 
     @Test

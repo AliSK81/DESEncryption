@@ -6,14 +6,14 @@ import main.abstractions.SBox;
 import main.implementations.Bits;
 
 
-public class MixerImp implements Mixer {
+public class DESMixer implements Mixer {
     private static final int BLOCK_SIZE = 64;
     private static final int SUB_KEY_SIZE = 48;
     private final PBox expansionPBox;
     private final PBox straightPBox;
     private final SBox[] sBoxes;
 
-    public MixerImp(PBox expansionPBox, PBox straightPBox, SBox[] sBoxes) {
+    public DESMixer(PBox expansionPBox, PBox straightPBox, SBox[] sBoxes) {
         if (sBoxes.length != 8) {
             throw new IllegalArgumentException("The SBoxes array must contain exactly 8 SBoxes.");
         }

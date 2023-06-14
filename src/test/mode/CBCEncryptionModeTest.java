@@ -13,7 +13,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CBCEncryptionModeTest {
-    static int[][] SUBSTITUTION_TABLES = DESTables.DES_SUBSTITUTION_TABLES;
+    static int[][] SUBSTITUTION_TABLES = DESTables.SUBSTITUTION_TABLES;
 
     private EncryptionMode encryptionMode;
 
@@ -22,7 +22,7 @@ public class CBCEncryptionModeTest {
     public void setUp() {
         SBox[] sBoxes = Arrays.stream(SUBSTITUTION_TABLES).map(SBoxImpl::new).toArray(SBox[]::new);
 
-        Mixer mixer = new MixerImp(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
+        Mixer mixer = new DESMixer(new DESExpansionPBox(), new DESStraightPBox(), sBoxes);
         PBox initialPBox = new DESInitialPBox();
         PBox finalPBox = new DESFinalPBox();
         KeyGenerator keyGenerator = new DESKeyGenerator(new DESParityDropPBox(), new DESCompressionPBox());
