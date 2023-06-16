@@ -1,7 +1,7 @@
 package test.mode;
 
 import main.abstractions.*;
-import main.implementations.*;
+import main.implementations.Bits;
 import main.implementations.des.*;
 import main.implementations.mode.ECBEncryptionMode;
 import main.tables.DESTables;

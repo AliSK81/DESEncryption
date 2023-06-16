@@ -2,7 +2,7 @@ package main.implementations.des;
 
 import main.tables.DESTables;
 
-public class DESParityDropPBox extends AbstractPBox {
+public class DESParityDropPBox extends PBoxImpl {
     private static final int[] PARITY_BIT_DROP_TABLE = DESTables.KEY_PARITY_BIT_DROP_PERMUTATION_TABLE;
 
     public DESParityDropPBox() {

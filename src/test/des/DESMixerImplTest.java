@@ -1,10 +1,10 @@
 package test.des;
 
 import main.abstractions.SBox;
-import main.implementations.*;
+import main.implementations.Bits;
 import main.implementations.des.DESExpansionPBox;
-import main.implementations.des.DESStraightPBox;
 import main.implementations.des.DESMixer;
+import main.implementations.des.DESStraightPBox;
 import main.implementations.des.SBoxImpl;
 import main.tables.DESTables;
 import org.junit.jupiter.api.BeforeEach;

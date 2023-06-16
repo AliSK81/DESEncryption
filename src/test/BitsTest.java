@@ -178,7 +178,7 @@ public class BitsTest {
         byte[] bytes = {0x01, 0x23, 0x45, 0x67};
         Bits bits = Bits.fromByteArray(bytes);
         assertEquals(Bits.fromBin("00000001001000110100010101100111"), bits);
-        assertEquals(bytes.length * 8 , bits.size());
+        assertEquals(bytes.length * 8, bits.size());
     }
 
     @Test

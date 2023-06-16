@@ -1,9 +1,9 @@
 package main.implementations.eve;
 
-import main.implementations.des.AbstractPBox;
+import main.implementations.des.PBoxImpl;
 import main.tables.EVETables;
 
-public class EVEFinalPBox extends AbstractPBox {
+public class EVEFinalPBox extends PBoxImpl {
     private static final int[] PERMUTATION_TABLE = EVETables.FINAL_PERMUTATION_TABLE;
 
     public EVEFinalPBox() {

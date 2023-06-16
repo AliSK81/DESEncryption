@@ -3,10 +3,10 @@ package main.implementations.des;
 import main.abstractions.PBox;
 import main.implementations.Bits;
 
-public class AbstractPBox implements PBox {
+public class PBoxImpl implements PBox {
     protected final int[] permutationTable;
 
-    public AbstractPBox(int[] permutationTable) {
+    public PBoxImpl(int[] permutationTable) {
         this.permutationTable = permutationTable;
     }
 

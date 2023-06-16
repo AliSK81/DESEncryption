@@ -72,7 +72,6 @@ public class DESTables {
             33, 1, 41, 9, 49, 17, 57, 25
     };
 
-
     public static final int[] EXPANSION_PERMUTATION_TABLE = {
             32, 1, 2, 3, 4, 5, 4, 5,
             6, 7, 8, 9, 8, 9, 10, 11,

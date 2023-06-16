@@ -4,7 +4,7 @@ import main.abstractions.KeyGenerator;
 import main.abstractions.Mixer;
 import main.abstractions.PBox;
 import main.abstractions.SBox;
-import main.implementations.*;
+import main.implementations.Bits;
 import main.implementations.des.*;
 import main.tables.DESTables;
 import org.junit.jupiter.api.BeforeEach;
