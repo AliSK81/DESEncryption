@@ -3,7 +3,10 @@ package main.implementations;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.Objects;
 
 public class Bits implements Serializable {
     private final BitSet data;
@@ -21,10 +24,6 @@ public class Bits implements Serializable {
 
     public static Bits empty() {
         return new Bits(0);
-    }
-
-    public Bits copy() {
-        return get(0, nbits);
     }
 
     public static BitSet bytesToBitSet(byte[] bytes) {
@@ -72,6 +71,10 @@ public class Bits implements Serializable {
             }
         }
         return bits;
+    }
+
+    public Bits copy() {
+        return get(0, nbits);
     }
 
     public String toTxt() {

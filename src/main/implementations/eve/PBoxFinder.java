@@ -1,9 +1,6 @@
 package main.implementations.eve;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -22,27 +19,55 @@ public class PBoxFinder {
                 .collect(Collectors.toList());
     }
 
-    public static List<Integer> findPBox(Map<String, String> outputByInput) {
+    public static ArrayList<int[]> findPossiblePBoxes(Map<String, String> outputByInput) {
         int inputLength = outputByInput.keySet().iterator().next().length();
 
         // Create a map of possible positions for each bit
         Map<Integer, List<Integer>> possiblePositions = new HashMap<>();
         outputByInput.forEach((input, output) -> {
             for (int i = 0; i < inputLength; i++) {
-                char currentChar = input.charAt(i);
-                possiblePositions.merge(i, charIndices(currentChar, output), PBoxFinder::intersect);
+                char currentChar = output.charAt(i);
+                possiblePositions.merge(i, charIndices(currentChar, input), PBoxFinder::intersect);
             }
         });
 
-        System.out.println(possiblePositions);
 
-        // Find the real position of each bit
-        List<Integer> pBox = new ArrayList<>(inputLength);
+        // Find all valid pBox options
+        List<List<Integer>> pBoxOptions = new ArrayList<>();
         for (int i = 0; i < inputLength; i++) {
             List<Integer> positions = possiblePositions.getOrDefault(i, new ArrayList<>());
-            pBox.add(positions.size() == 1 ? positions.get(0) : -1);
+            if (positions.isEmpty()) {
+                // If no positions were found, return an empty list to indicate that no valid pBox options can be generated
+                return new ArrayList<>();
+            }
+            List<List<Integer>> newPBoxOptions = new ArrayList<>();
+            for (Integer position : positions) {
+                if (pBoxOptions.isEmpty()) {
+                    // If this is the first bit, add a new option for each position
+                    newPBoxOptions.add(new ArrayList<>(Collections.singletonList(position)));
+                } else {
+                    // Otherwise, add the position to each existing option
+                    for (List<Integer> pBoxOption : pBoxOptions) {
+                        if (!pBoxOption.contains(position)) {
+                            List<Integer> newPBoxOption = new ArrayList<>(pBoxOption);
+                            newPBoxOption.add(position);
+                            newPBoxOptions.add(newPBoxOption);
+                        }
+                    }
+                }
+            }
+            pBoxOptions = newPBoxOptions;
         }
 
-        return pBox;
+        ArrayList<int[]> pBoxOptionsArray = new ArrayList<>();
+        for (List<Integer> pBoxOption : pBoxOptions) {
+            int[] pBoxOptionArray = new int[pBoxOption.size()];
+            for (int i = 0; i < pBoxOption.size(); i++) {
+                pBoxOptionArray[i] = pBoxOption.get(i) + 1;
+            }
+            pBoxOptionsArray.add(pBoxOptionArray);
+        }
+
+        return pBoxOptionsArray;
     }
 }

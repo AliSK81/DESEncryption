@@ -3,7 +3,7 @@ package main.implementations.des;
 import main.abstractions.PBox;
 import main.implementations.Bits;
 
-public abstract class AbstractPBox implements PBox {
+public class AbstractPBox implements PBox {
     protected final int[] permutationTable;
 
     public AbstractPBox(int[] permutationTable) {

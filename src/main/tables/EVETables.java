@@ -1,8 +1,5 @@
 package main.tables;
 
-import java.util.Arrays;
-import java.util.stream.IntStream;
-
 public class EVETables {
     public static final int[] INITIAL_PERMUTATION_TABLE = {
             58, 50, 42, 34, 26, 18, 10, 1,
@@ -32,21 +29,12 @@ public class EVETables {
 //            .toArray();
 
     public static final int[] REVERSED_FINAL_PERMUTATION_TABLE = new int[64];
-
-    static {
-        for (int i = 0; i < 64; i++) {
-            var pos = FINAL_PERMUTATION_TABLE[i] - 1;
-            REVERSED_FINAL_PERMUTATION_TABLE[pos] = i + 1;
-        }
-    }
-
     public static final int[] IDENTITY_STRAIGHT_PERMUTATION_TABLE = {
             1, 2, 3, 4, 5, 6, 7, 8, 9,
             10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24,
             25, 26, 27, 28, 29, 30, 31, 32
     };
-
     public static final int[] IDENTITY_FINAL_PERMUTATION_TABLE = {
             1, 2, 3, 4, 5, 6, 7, 8,
             9, 10, 11, 12, 13, 14, 15, 16,
@@ -57,4 +45,11 @@ public class EVETables {
             49, 50, 51, 52, 53, 54, 55, 56,
             57, 58, 59, 60, 61, 62, 63, 64
     };
+
+    static {
+        for (int i = 0; i < 64; i++) {
+            var pos = FINAL_PERMUTATION_TABLE[i] - 1;
+            REVERSED_FINAL_PERMUTATION_TABLE[pos] = i + 1;
+        }
+    }
 }
