@@ -1,6 +1,9 @@
 package main.tables;
 
-public class CustomTables {
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
+public class EVETables {
     public static final int[] INITIAL_PERMUTATION_TABLE = {
             58, 50, 42, 34, 26, 18, 10, 1,
             60, 52, 44, 36, 28, 20, 12, 4,
@@ -23,7 +26,21 @@ public class CustomTables {
             33, 1, 41, 9, 49, 17, 57, 25
     };
 
-    public static final int[] IDENTITY_PERMUTATION_TABLE = {
+//    public static final int[] REVERSED_FINAL_PERMUTATION_TABLE = IntStream.range(0, 64)
+//            .map(i -> FINAL_PERMUTATION_TABLE[i] - 1)
+//            .map(i -> i + 1)
+//            .toArray();
+
+    public static final int[] REVERSED_FINAL_PERMUTATION_TABLE = new int[64];
+
+    static {
+        for (int i = 0; i < 64; i++) {
+            var pos = FINAL_PERMUTATION_TABLE[i] - 1;
+            REVERSED_FINAL_PERMUTATION_TABLE[pos] = i + 1;
+        }
+    }
+
+    public static final int[] IDENTITY_STRAIGHT_PERMUTATION_TABLE = {
             1, 2, 3, 4, 5, 6, 7, 8, 9,
             10, 11, 12, 13, 14, 15, 16,
             17, 18, 19, 20, 21, 22, 23, 24,
